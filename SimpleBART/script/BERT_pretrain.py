@@ -8,8 +8,8 @@ from transformers import (AutoTokenizer, AutoModelForMaskedLM,
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Fine-tune BERT for Japanese MLM task")
-    parser.add_argument("--train_file", type=str, default="../data/sample_mask_train.csv", help="Path to the training CSV file.")
-    parser.add_argument("--validation_file", type=str, default="../data/sample_mask_valid.csv", help="Path to the validation CSV file.")
+    parser.add_argument("--train_file", type=str, default="../data/SNOW_mask_train.csv", help="Path to the training CSV file.")
+    parser.add_argument("--validation_file", type=str, default="../data/SNOW_mask_valid.csv", help="Path to the validation CSV file.")
     parser.add_argument("--model_name_or_path", type=str, default="tohoku-nlp/bert-base-japanese-whole-word-masking",
                         help="Pretrained model name or path.")
     parser.add_argument("--output_dir", type=str, default="./../SNOW_mlm_output", help="Where to save the model.")
