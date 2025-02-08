@@ -59,8 +59,14 @@ def process_file(input_file, output_file):
     print(f"評価結果を {output_file} に保存しました。")
 
 # ====== 実験の実行 ======
-input_dir = "./../mecab_data/mecab_MSimple_BART"
-output_dir = "./../evaluate_data/SARI_MSimple_BART"
-process_file(f"{input_dir}/mecab_SNOW_test.csv", f"{output_dir}/SARI_SNOW_test.csv")
-process_file(f"{input_dir}/mecab_MATCHA_test.csv", f"{output_dir}/SARI_MATCHA_test.csv")
-process_file(f"{input_dir}/mecab_JADES_test.csv", f"{output_dir}/SARI_JADES_test.csv")
+# 評価をしたいモデルを選択
+model = "BART"
+#model = "BART-MATCHA"
+#model = "Simple"
+#model = "Simple-MATCHA"
+
+input_dir = f"./../../output_result/run_result/run_{model}"
+output_dir = f"./../../output_result/evaluate_result/SARI_{model}"
+process_file(f"{input_dir}/run_SNOW_test.csv", f"{output_dir}/SARI_SNOW_test.csv")
+process_file(f"{input_dir}/run_MATCHA_test.csv", f"{output_dir}/SARI_MATCHA_test.csv")
+process_file(f"{input_dir}/run_JADES_test.csv", f"{output_dir}/SARI_JADES_test.csv")
