@@ -1,6 +1,7 @@
 import os
 import torch
 import pandas as pd
+import re
 from transformers import BertJapaneseTokenizer, EncoderDecoderModel
 
 # ====== トークナイザーとモデルの準備 ======
@@ -31,7 +32,12 @@ def simplify_text(text):
         early_stopping=True,
         decoder_start_token_id=model.config.decoder_start_token_id
     )
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+    simplified_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    
+    # すべてのスペースを削除
+    edited_text = re.sub(r'\s+', '', simplified_text)
+    
+    return edited_text
 
 # ====== ファイル存在確認関数 ======
 def check_file_exists(filepath):
