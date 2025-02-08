@@ -1,8 +1,13 @@
 from easse.sari import corpus_sari
 import pandas as pd
 import os
+import MeCab
 
 # ====== 評価を実行する関数 ======
+def tokenize_text(text):
+    mecab = MeCab.Tagger("-r /dev/null -d /home/ito/local/lib/mecab/dic/ipadic")
+    return mecab.parse(text).strip()
+
 def process_file(input_file, output_file):
     """
     入力ファイルを読み込み、SARIスコアを計算し、結果を出力ファイルに保存する関数
@@ -22,9 +27,9 @@ def process_file(input_file, output_file):
     # SARIスコアを計算して全行に追加
     sari_scores = []
     for _, row in data.iterrows():
-        orig_sent = row['text']
-        sys_sent = row['simple']
-        ref_sent = row['label']
+        orig_sent = tokenize_text(row['text'])
+        sys_sent = tokenize_text(row['simple'])
+        ref_sent = tokenize_text(row['label'])
 
         # 参照文をリスト形式に変換
         refs_sents = [[ref_sent]]
@@ -60,10 +65,10 @@ def process_file(input_file, output_file):
 
 # ====== 実験の実行 ======
 # 評価をしたいモデルを選択
-model = "BART"
+#model = "BART"
 #model = "BART-MATCHA"
 #model = "Simple"
-#model = "Simple-MATCHA"
+model = "Simple-MATCHA"
 
 input_dir = f"./../../output_result/run_result/run_{model}"
 output_dir = f"./../../output_result/evaluate_result/SARI_{model}"
